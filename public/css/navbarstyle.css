@@ -1,0 +1,154 @@
+body{
+	font-family: 'Open Sans', sans-serif;
+}
+
+.fa-solid{
+	color: white;
+	margin-right: 10px;
+}
+
+:root {
+	--gray: grey;
+	--black: #000;
+	--white: #fff;
+	--green: #91f600;
+  
+	--body-background: #fff;
+	--hover-color: grey;
+	--header-background: #000;
+	--anchor-color: #fff;
+	--heading-color: #b2b2b2;
+	--paragraph-color: #b2b2b2;
+	--anchor-active-color: #91f600;
+  }  
+  
+  .green {
+	color: var(--green);
+  }
+  
+  .white {
+	color: var(--white);
+  }
+  
+  * {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+  }
+   
+  
+  a {
+	text-decoration: none;
+	color: white;
+	font-weight: 600;
+  }
+  
+  a:hover {
+	color: cyan;
+	text-decoration: none;
+  }
+  
+  header {
+	display: flex;
+	background-color: var(--header-background);
+	padding-top: 18px;
+	justify-content: space-around;
+	flex-flow: row wrap;
+  }
+  
+  .section {
+	flex-grow: 1;
+  }
+  
+  .section.logo {
+	margin-left: 2.5em;
+  }
+  
+  .logo {
+	/* color: azure; */
+	font-size: 1.2em;
+	font-weight: bold;
+	text-transform: uppercase;
+  }
+  
+  .logoimg{
+	margin-right: 10px;
+	width: 30px;
+	height: 40px;
+  }
+  
+  ul {
+	list-style-type: none;
+	display: flex;
+	flex-flow: row nowrap;
+	width: 500px;
+	margin: 0;
+	padding: 0;
+  }
+  
+  ul li {
+	flex-grow: 1;
+	text-align: center;
+	width: 70px;
+  }
+  
+  ul li a {
+	color: var(--anchor-color);
+	font-size: .9rem;
+	text-transform: uppercase;
+  }
+  
+  header div:nth-child(1) {
+	flex-grow: 8;
+	padding-bottom: 15px;
+  }
+  
+  header div:nth-child(1) img {
+	margin-left: 15px;
+  }
+  
+  .box-shadow {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  @media all and (max-width: 800px) {
+	header {
+		justify-content: space-around;
+	}
+  
+	.container {
+		padding: 50px;
+	}
+  }
+  
+  @media only screen and (max-width:542px) {
+	header div:nth-child(1) {
+		margin: 0 auto;
+		display: block;
+		padding-bottom: 0;
+	}
+  
+	header {
+		flex-direction: column;
+	}
+  
+	.section {
+		flex-grow: 1;
+		text-align: center;
+	}
+  
+	.section.logo {
+		margin: 0;
+	}
+  
+	ul {
+		background-color: #232323;
+		width: 100%;
+		margin-top: 15px;
+	}
+  
+	ul li {
+		width: 50%;
+		padding: 5px;
+	}
+  } 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CF Progress Observer</title>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/mainstyle.css">
+        <link rel="stylesheet" href="/css/navbarstyle.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/2a2db20aec.js" crossorigin="anonymous"></script>
+ 
+        
+        <style>
+            .fa {
+            font-size: 30px;
+            width: 30px;
+            text-align: center;
+            text-decoration: none !important;
+            border-radius: 50%;
+            color: rgb(0, 200, 255);
+            }
+            .fa-small {
+            font-size: 20px;
+            text-align: center;
+            text-decoration: none !important;
+            border-radius: 50%;
+            color: rgb(0, 225, 255);
+            }
+            .fa-solid{
+              color: white;
+              margin-right: 10px;
+            }
+        </style>
+    </head>
+<body>
+   
+  <header class="box-shadow">
+    <div class="section logo">
+         <img src="/img/logoimg.webp" class="logoimg" alt="">
+					<a href="/"><span class = "logo">CF VIZ</span></a>
+    </div>
+
+    <div class="section">
+      <ul>
+        <li><i class="fa-sharp fa-solid fa-house"></i><a href="/">Home</a></li>
+        <li><i class="fa-solid fa-user"></i><a href="/about">About</a></li>
+        <li><i class="fa-solid fa-bell"></i><a href="/contest-calender">Contest Calender</a></li>
+      </ul>
+    </div>
+  </header>
+
+      <br>  
+       
+      <div class="container ">
+          <br>
+          <% if(f==2) {%>
+            <div class=" rounded-end border border-5 alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>No data found for the username.</strong>
+            </div>
+          <%}%>
+        <% if(typeof(user) == 'undefined'){ %>
+            <div class="cardMain card text-center mx-auto">
+                <div class="card-body align-items-center d-flex justify-content-center">
+                    <form method="POST" action="/users" id="userform">
+                        <input type='text' name="handle" class="inputt placeholder col-12 placeholder-wave form-control" id="handle" placeholder="Enter Codeforces Username">
+                        <br>
+                        <button type="submit" class=" button-89 bttn"> Search </button>
+                    </form>
+                </div>
+            </div>
+        <% } %>
+
+        <br>
+      </div>
+        
+        <div class="text-center ">
+            <div class="">
+            <br>
+            <br>
+            <a href="https://github.com/D-ivyanshu" class="fa fa-github"></a>
+            &nbsp;
+            <a href="https://www.linkedin.com/in/divyanshu-upreti-0796381ba/" class="fa fa-linkedin"></a>
+            &nbsp;
+            <a href="mailto:divyanshu9upreti@gmail.com" class="fa fa-envelope"></a>
+            &nbsp;
+        </div>
+      <br>
+</body>
+</html>
+
+
+
+

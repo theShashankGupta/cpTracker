@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Homepage</title>
+	 
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <link rel="stylesheet" href="/css/calenderstyle.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/2a2db20aec.js" crossorigin="anonymous"></script>
+
+  
+
+</head>
+<body>
+
+
+	<!-- navbar portion -->
+  <header class="box-shadow">
+    <div class="section logo">
+         <img src="/img/logoimg.webp" class="logoimg" alt="">
+					<a href="/" class = "link"><span class = "logo">CF VIZ</span></a>
+    </div>
+
+    <div class="section">
+      <ul>
+        <li><i class="fa-sharp fa-solid fa-house"></i><a href="/" class = "link">Home</a></li>
+        <li><i class="fa-solid fa-user"></i><a href="/about" class = "link">About</a></li>
+        <li><i class="fa-solid fa-bell"></i><a href="/contest-calender" class = "link">Contest Calender</a></li>
+      </ul>
+    </div>
+  </header>
+
+      <br>  
+      <!--  -->
+   <div class="btncontainer">
+    <div class="button-container">
+      <button onclick="dotheJob('CodeForces')" class = "button-30">CodeForces</button>
+      <button onclick="dotheJob('AtCoder')" class = "button-30">AtCoder</button>
+      <button onclick="dotheJob('LeetCode')" class = "button-30">LeetCode</button>
+      <button onclick="dotheJob('CodeChef')" class = "button-30">CodeChef</button>
+      <button onclick="dotheJob('HackerEarth')" class = "button-30">HackerEarth</button>
+      <button onclick="dotheJob('Kick Start')" class = "button-30">Kick Start</button>
+	</div>
+</div>
+
+	<h1 class = "headContent">Upcoming Contests</h1>
+  <div class="container">
+  <table >
+   
+  <tbody id = "contests-list">
+    <tr>
+     
+    </tr>
+  </tbody>
+    
+   
+  </table>
+</div>
+  <script>
+    const apiUrl = 'https://kontests.net/api/v1/all';
+    const buttons = document.querySelectorAll('.button');
+    const contestsList = document.getElementById('contests-list');
+    const heading = document.querySelector('.headContent');
+    
+    function getTimeRemaining(seconds) {
+      const dayInSeconds = 86400;
+      const hourInSeconds = 3600;
+      const minuteInSeconds = 60;
+      const days = Math.floor(seconds / dayInSeconds);
+      const hours = Math.floor((seconds % dayInSeconds) / hourInSeconds);
+      const minutes = Math.floor((seconds % hourInSeconds) / minuteInSeconds);
+      const remainingSeconds = seconds % minuteInSeconds;
+
+      return {
+        days,
+        hours,
+        minutes,
+        seconds: remainingSeconds
+      };
+    }
+
+    // Fetch data from the API
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        let filteredData = data;
+        
+      // Function to display filtered data
+        const displayData = (contests,site) => {
+        heading.innerHTML = `
+            Upcoming Contests at ${site}
+        `,
+        contestsList.innerHTML = `
+            <td class = "head">Date</td>
+            <td class = "head">Time</td>
+            <td class = "head">Event</td>
+        `;  
+        
+        contests.forEach(contest => {
+          
+          // Input string in the given format
+          const inputStr = contest.start_time;
+
+          // Convert input string to Date object
+          const dateObj = new Date(inputStr);
+          
+          // Convert date to string in "DayName Month Day" format
+          const dateStr = dateObj.toDateString();
+
+          // Extract day name, month, and day components
+          const dayName = dateStr.slice(0, 3);
+          const month = dateStr.slice(4, 7);
+          const day = dateStr.slice(8, 10);
+
+          // Combine components into desired format
+          const outputStr = dayName + " " + month + " " + day;
+
+          // Get the date, day, and time in the desired format
+          // const date = dateObj.toDateString(); // e.g. "Wed Feb 16 2023"
+          const hour = dateObj.getHours();
+          const minute = dateObj.getMinutes();
+
+          // Combine hour and minute components with colon separator
+          const timeStr = hour.toString().padStart(2, '0') + ":" + minute.toString().padStart(2, '0');
+ 
+          const contestElement = document.createElement('tr');
+          contestElement.classList.add('card');
+          contestElement.innerHTML = `
+          <td>${outputStr}</td>
+          <td>${timeStr}</td>
+          <td><a href = ${contest.url}>${contest.name}</a></td>
+          `;
+            contestsList.appendChild(contestElement);
+          });
+
+        }
+
+        // Function to filter data based on button clicked
+        const filterData = (site) => {
+        filteredData = []
+        data.forEach(contest => {
+          if(contest.status == "BEFORE" && (site == "all" || contest.site === site)){
+          filteredData.push(contest);
+          }
+        });
+
+        console.log(filteredData);
+          displayData(filteredData,site);
+        }
+      
+          
+      dotheJob = (selectedSite) => {
+        filterData(selectedSite);
+      }
+      
+        // Display all data on page load
+      })
+      .catch(error => console.error(error));
+
+    </script>
+ 	
+</body>
+</html>

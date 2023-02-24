@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CF Progress Observer</title>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/navbarstyle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script src="https://kit.fontawesome.com/2a2db20aec.js" crossorigin="anonymous"></script>
+
+        
+        <style>
+            .fa {
+            font-size: 30px;
+            width: 30px;
+            text-align: center;
+            text-decoration: none !important;
+            border-radius: 50%;
+            }
+            .user-img{
+              max-width: 140px;
+              max-height: 140px;
+            }
+            .fill {
+              object-fit: fill;
+            }
+            .fa-small {
+            font-size: 20px;
+            text-align: center;
+            text-decoration: none !important;
+            border-radius: 50%;
+            }
+        </style>
+    </head>
+<body>
+    <header class="box-shadow">
+      <div class="section logo">
+        <img src="/img/logoimg.webp" class="logoimg" alt="">
+         <a href="/"><span class = "logo">CF VIZ</span></a>
+      </div>
+    
+
+      <div class="section">
+        <ul>
+          <li><i class="fa-sharp fa-solid fa-house"></i><a href="/">Home</a></li>
+          <li><i class="fa-solid fa-user"></i><a href="/about">About</a></li>
+          <li><i class="fa-solid fa-bell"></i><a href="/contest-calender">Contest Calender</a></li>
+          <!-- <li><a href="#">Contact</a></li> -->
+        </ul>
+      </div>
+    </header>
+ 
+    
+      <div class="container">
+          <br> <br>
+
+        <% if(typeof(data) != 'undefined'){ %>
+
+          <h1 id="sd"></h1>
+          <h1 id="ed"></h1>
+
+          <div id="about">
+            <div class="container2">
+          <div class="rows">
+            <div class="about-col-2">
+              <div class="cardHandle">
+                <div class="rows">
+                <div class="info">
+                    <p><strong>RANK : </strong><%= data.rank%></p>
+                    <p><strong>NAME :  </strong><%= data.firstName%> <%= data.lastName%></p>
+                    <p><strong>HANDLE : </strong><span id="handle"><%= data.handle%></span></p>
+                    <p><strong>MAX RATING : </strong><%= data.maxRating%></p>
+                    <p><strong>CURRENT RATING : </strong><%= data.rating%></p>
+                </div>
+                <a href= "https://codeforces.com/profile/<%= data.handle %>" class = "linkk"><img src="/img/gotoCodeforces.png" alt=""></a>
+              </div>
+              </div>
+            </div>
+     
+            <div class="about-col-1 handleimg">
+                <img src="<%= data.titlePhoto%>">
+            </div>
+            
+          </div>
+        </div>
+        </div>
+          <br>
+ 
+        <% } %>
+
+        <div class="row" id = "11" style = "display: none;">
+          <div class="col-sm-12">
+            <div class="cardcontainer card h-100">
+              <div class="headingCard card-header"><strong>Verdicts and Languages</strong></div>
+              <div class="card-body" >
+                <div class="row">
+                <div class="col col-sm-6">
+                  <canvas id="verdict" style="max-height: 100%; max-width: 100%;"></canvas>
+                </div>
+                <div class="col col-sm-6">
+                    <canvas id="language" style="max-height: 100%; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id = "22" style = "display: none;">
+          <div class="col-sm-12">
+            <div class="cardcontainer card h-100">
+              <div class="headingCard card-header"><strong>By Index</strong></div>
+              <div class="card-body">
+                    <canvas id="byind" style="max-height: 100%; max-width: 100%;"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id = "33" style = "display: none;">
+          <div class="col-sm-12">
+            <div class="cardcontainer card h-100">
+              <div class="card-header headingCard"><strong>By Rating</strong></div>
+              <div class="card-body">
+                    <canvas id="byrat" style="max-height: 100%; max-width: 100%;"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="card">
+          
+          <div class="card-body">
+            <blockquote class="blockquote mb-0 text-center">
+              <p>The only real progress lies in learning to be wrong all alone.</p>
+              <footer class="blockquote-footer"><cite title="Source Title">Abert Camus</cite></footer>
+            </blockquote>
+          </div>
+        <div class="text-center ">
+          <p class="fst-italic">Created with ❤ by Divyanshu Upreti</p>
+          
+            <div class="">
+           
+            </div>
+        </div>
+      <script type = "text/javascript" src="/chartData.js"></script>
+      <script>
+        document.getElementById('sd').value = "2008-01-01";
+        document.getElementById('ed').value = moment().format('YYYY-MM-DD');
+
+  
+        function filter(){
+          let form = document.getElementById('userform');
+          let data = {};
+          data.sd = document.getElementById('sd').value;
+          data.ed = document.getElementById('ed').value;
+          data.handle = document.getElementById('handle').innerText;
+          console.log(data.sd);
+          $.ajax({
+                          url: "/filter",
+                          method: "POST",
+                          data: JSON.stringify(data),
+                          contentType: 'application/JSON',
+                          processData: false,
+                          success: function(response){
+                              upd(response);
+                              
+                          }
+          }); 
+        }
+
+        function upd(resp){
+          document.getElementById('11').style.display = 'block';
+          document.getElementById('22').style.display = 'block';
+          document.getElementById('33').style.display = 'block';
+          addData(verdict, Object.keys(resp.all.verdict), Object.values(resp.all.verdict), 0, 0, "aa");
+          addData(language, Object.keys(resp.all.language), Object.values(resp.all.language), 0, 0, "aa"); 
+          addData(index, Object.keys(resp.mode.total.index), Object.values(resp.mode.official.index), 0, 1, "Official"); 
+          addData(index, Object.keys(resp.mode.total.index), Object.values(resp.mode.practice.index), 1, 1, "Practice"); 
+          addData(index, Object.keys(resp.mode.total.index), Object.values(resp.mode.virtual.index), 2, 1, "Virtual"); 
+          addData(rating, Object.keys(resp.mode.total.rating), Object.values(resp.mode.official.rating), 0, 1, "Official");
+          addData(rating, Object.keys(resp.mode.total.rating), Object.values(resp.mode.practice.rating), 1, 1, "Practice"); 
+          addData(rating, Object.keys(resp.mode.total.rating), Object.values(resp.mode.virtual.rating), 2, 1, "Virtual");
+        }
+
+        filter();
+      </script>
+</body>
+</html>
